@@ -23,7 +23,7 @@ podTemplate(
               DEPLOY_NAMESPACE_PREFIX = "cicd-fiber-dev"
               DEPLOY_YAML = "deployment/cicd-service.yaml"
               REGISTRY_PROJECT_NAME = "wuyuz"
-
+              IMAGE_TAG = 'V1'
           }
 
         stage('PREPARE') {
@@ -33,6 +33,7 @@ podTemplate(
         }
 
         stage('Build') {
+            sh 'printenv'
             container(name: 'docker') {
                       sh 'docker build . --file Dockerfile --tag ${IMAGE_ID}:${IMAGE_TAG}'
                       sh 'echo "${REGISTRY_PASSWORD}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin'
