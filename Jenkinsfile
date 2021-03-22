@@ -18,14 +18,6 @@ podTemplate(
     ]
 ) {
     node ('pod-golang') {
-        environment {
-              IMAGE_ID = 'cicd-fiber'
-              DEPLOY_NAMESPACE_PREFIX = "cicd-fiber-dev"
-              DEPLOY_YAML = "deployment/cicd-service.yaml"
-              REGISTRY_PROJECT_NAME = "wuyuz"
-              IMAGE_TAG = 'V1'
-          }
-
         stage('PREPARE') {
             container('golang') {  // 调用容器
                 sh ("go version")
@@ -33,6 +25,13 @@ podTemplate(
         }
 
         stage('Build') {
+            environment {
+                  IMAGE_ID = 'cicd-fiber'
+                  DEPLOY_NAMESPACE_PREFIX = "cicd-fiber-dev"
+                  DEPLOY_YAML = "deployment/cicd-service.yaml"
+                  REGISTRY_PROJECT_NAME = "wuyuz"
+                  IMAGE_TAG = 'V1'
+              }
             sh 'printenv'
             container(name: 'docker') {
                       sh 'docker build . --file Dockerfile --tag ${IMAGE_ID}:${IMAGE_TAG}'
