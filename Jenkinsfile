@@ -34,7 +34,7 @@ podTemplate(
         stage('Build') {
             sh 'printenv'
             container(name: 'docker') {
-                      sh 'pwd'
+                      sh 'ls'
                       sh 'docker build . --file Dockerfile --tag ${IMAGE_ID}:${IMAGE_TAG}'
                       sh 'echo "${REGISTRY_PASSWORD}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin'
                       sh 'docker tag ${IMAGE_ID}:${IMAGE_TAG}  ${REGISTRY_HOST}/${REGISTRY_PROJECT_NAME}/${IMAGE_ID}:${IMAGE_TAG}'
