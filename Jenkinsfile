@@ -18,11 +18,11 @@ podTemplate(
 			)
     ],
     envVars:[
-            envVar(key: "IMAGE_ID", value: "cicd-fiber")
-            envVar(key: "DEPLOY_NAMESPACE_PREFIX", value: "cicd-fiber-dev")
-            envVar(key: "DEPLOY_YAML", value: "deployment/cicd-service.yaml")
-            envVar(key: "REGISTRY_PROJECT_NAME", value: "wuyuz")
-            envVar(key: "IMAGE_TAG", value: "V1")
+            envVar(key: "IMAGE_ID", value: "cicd-fiber"),
+            envVar(key: "DEPLOY_NAMESPACE_PREFIX", value: "cicd-fiber-dev"),
+            envVar(key: "DEPLOY_YAML", value: "deployment/cicd-service.yaml"),
+            envVar(key: "REGISTRY_PROJECT_NAME", value: "wuyuz"),
+            envVar(key: "IMAGE_TAG", value: "V1"),
     ]
 ) {
     node ('pod-golang') {
