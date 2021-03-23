@@ -1,8 +1,7 @@
 
 podTemplate(
-    label: 'pod-golang',
+    label: 'pod-cicd',
 	cloud: "kubernetes",
-    privileged: 'true',
     containers: [    // 添加容器
         containerTemplate(
             name: 'golang',
@@ -25,7 +24,7 @@ podTemplate(
             envVar(key: "IMAGE_TAG", value: "V1")
     ]
 ) {
-    node ('pod-golang') {
+    node ('pod-cicd') {
         stage('PREPARE') {
             container('golang') {  // 调用容器
                 sh ("go version")
@@ -35,7 +34,7 @@ podTemplate(
         stage('Build') {
             sh 'printenv'
             container(name: 'docker') {
-                      sh 'ls'
+                      sh 'pwd'
                       sh 'docker build . --file Dockerfile --tag ${IMAGE_ID}:${IMAGE_TAG}'
                       sh 'echo "${REGISTRY_PASSWORD}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin'
                       sh 'docker tag ${IMAGE_ID}:${IMAGE_TAG}  ${REGISTRY_HOST}/${REGISTRY_PROJECT_NAME}/${IMAGE_ID}:${IMAGE_TAG}'
