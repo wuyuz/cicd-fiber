@@ -34,6 +34,8 @@ podTemplate(
         stage('Build') {
             sh 'printenv'
             container(name: 'docker') {
+                      sh 'git clone https://github.com/wuyuz/cicd-fiber.git'
+                      sh 'cd cicd-fiber'
                       sh 'ls'
                       sh 'docker build . --file Dockerfile --tag ${IMAGE_ID}:${IMAGE_TAG}'
                       sh 'echo "${REGISTRY_PASSWORD}" | docker login "${REGISTRY_HOST}" -u "${REGISTRY_USERNAME}" --password-stdin'
